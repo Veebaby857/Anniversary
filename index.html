@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -71,6 +70,7 @@
   color:#ffb6cf;
   font-size:0.8rem;
 }
+
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 html { font-size:16px; }
 body {
@@ -347,7 +347,6 @@ margin-top:1rem;
 ::-webkit-scrollbar { width:3px; }
 ::-webkit-scrollbar-thumb { background:rgba(255,107,157,0.25); border-radius:2px; }
 </style>
-
 </head>
 <body>
 
@@ -355,7 +354,6 @@ margin-top:1rem;
 <div id="fhCont"></div>
 
 <!-- ══ PAGE 1 — HEART ══ -->
-
 <div class="page" id="p1">
   <div id="heartWrap">
 	<canvas id="heartC"></canvas>
@@ -363,7 +361,6 @@ margin-top:1rem;
   <p class="tap-hint">✦ tap the heart ✦</p>
 </div>
 
-<!-- ══ PAGE 2 — ANNIVERSARY ══ -->
 <!-- ══ PAGE GUESS DATE ══ -->
 <div class="page hidden" id="pGuess">
   <p class="g-sub">♡ one more thing ♡</p>
@@ -376,10 +373,10 @@ margin-top:1rem;
   </div>
 
   <button class="g-btn" onclick="checkDate()">Unlock ♡</button>
-
   <p class="g-msg" id="gMsg"></p>
 </div>
 
+<!-- ══ PAGE 2 — ANNIVERSARY ══ -->
 <div class="page hidden" id="p2">
   <p class="a-badge">✦ 4 months & counting ✦</p>
   <h1 class="a-big">Happy<br>Anniversary</h1>
@@ -394,7 +391,6 @@ margin-top:1rem;
 </div>
 
 <!-- ══ PAGE 3 — REASONS ══ -->
-
 <div class="page hidden" id="p3">
   <p class="r-title">Why I Love You</p>
   <p class="r-sub">let me count the ways</p>
@@ -412,7 +408,6 @@ margin-top:1rem;
 </div>
 
 <!-- ══ PAGE 4 — MUSIC ══ -->
-
 <div class="page hidden" id="p4">
   <p class="m-title">My Playlist</p>
   <p class="m-sub">♡ songs that reminds me of us</p>
@@ -459,95 +454,106 @@ margin-top:1rem;
 
 <script>
 function checkDate(){
-  const d=document.getElementById('gDay').value.trim();
-  const m=document.getElementById('gMonth').value.trim();
-  const y=document.getElementById('gYear').value.trim();
+  const d = document.getElementById('gDay').value.trim();
+  const m = document.getElementById('gMonth').value.trim();
+  const y = document.getElementById('gYear').value.trim();
+  const msg = document.getElementById('gMsg');
 
-  const msg=document.getElementById('gMsg');
-
-  if(d==="12" && (m==="5" || m==="05") && y==="2026"){
-	msg.textContent="Correct baby 💕";
-	setTimeout(()=>goTo('p2'),700);
-  }else{
-	msg.textContent="Wrong date 🥺 try again";
+  if(d === "12" && (m === "5" || m === "05") && y === "2026"){
+	msg.textContent = "Correct baby 💕";
+	setTimeout(() => goTo('p2'), 700);
+  } else {
+	msg.textContent = "Wrong date 🥺 try again";
   }
 }
+
 // ═══════ STARS ═══════
 const sc = document.getElementById('starC');
 const sx = sc.getContext('2d');
-let stars=[];
+let stars = [];
 function rsz(){
-  sc.width=window.innerWidth; sc.height=window.innerHeight;
-  stars=Array.from({length:160},()=>({
-	x:Math.random()*sc.width, y:Math.random()*sc.height,
-	r:Math.random()*1.4+0.2, a:Math.random(), s:(Math.random()-0.5)*0.007
+  sc.width = window.innerWidth;
+  sc.height = window.innerHeight;
+  stars = Array.from({length:160}, () => ({
+	x: Math.random()*sc.width,
+	y: Math.random()*sc.height,
+	r: Math.random()*1.4 + 0.2,
+	a: Math.random(),
+	s: (Math.random()-0.5)*0.007
   }));
 }
 function dstars(){
   sx.clearRect(0,0,sc.width,sc.height);
-  stars.forEach(s=>{
-	s.a+=s.s; if(s.a<0.1||s.a>1)s.s*=-1;
-	sx.beginPath(); sx.arc(s.x,s.y,s.r,0,Math.PI*2);
-	sx.fillStyle=`rgba(255,200,230,${s.a})`; sx.fill();
+  stars.forEach(s => {
+	s.a += s.s;
+	if(s.a < 0.1 || s.a > 1) s.s *= -1;
+	sx.beginPath();
+	sx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+	sx.fillStyle = `rgba(255,200,230,${s.a})`;
+	sx.fill();
   });
   requestAnimationFrame(dstars);
 }
-rsz(); dstars();
-window.addEventListener('resize',rsz);
+rsz();
+dstars();
+window.addEventListener('resize', rsz);
 
 // ═══════ FLOATING HEARTS ═══════
-const fhC=document.getElementById('fhCont');
-const fhEmoji=['💕','💗','💖','🌸','✨','💓','💝','🌹'];
-setInterval(()=>{
-  const h=document.createElement('div');
-  h.className='fh';
-  h.textContent=fhEmoji[Math.floor(Math.random()*fhEmoji.length)];
-  h.style.left=Math.random()*95+'vw';
-  h.style.bottom='-30px';
-  h.style.fontSize=(0.7+Math.random()*1.1)+'rem';
-  const dur=8+Math.random()*9;
-  h.style.animationDuration=dur+'s';
+const fhC = document.getElementById('fhCont');
+const fhEmoji = ['💕','💗','💖','🌸','✨','💓','💝','🌹'];
+setInterval(() => {
+  const h = document.createElement('div');
+  h.className = 'fh';
+  h.textContent = fhEmoji[Math.floor(Math.random()*fhEmoji.length)];
+  h.style.left = Math.random()*95 + 'vw';
+  h.style.bottom = '-30px';
+  h.style.fontSize = (0.7 + Math.random()*1.1) + 'rem';
+  const dur = 8 + Math.random()*9;
+  h.style.animationDuration = dur + 's';
   fhC.appendChild(h);
-  setTimeout(()=>h.remove(),(dur+0.5)*1000);
-},900);
+  setTimeout(() => h.remove(), (dur + 0.5)*1000);
+}, 900);
 
 // ═══════ HEART CANVAS ═══════
-const hC=document.getElementById('heartC');
-const hX=hC.getContext('2d');
-const WORDS=['I love you','I love you ♡','te amo','I adore you','forever yours'];
-let pts=[]; let hT=0; let hReady=false;
+const hC = document.getElementById('heartC');
+const hX = hC.getContext('2d');
+const WORDS = ['I love you','I love you ♡','te amo','I adore you','forever yours'];
+let pts = [];
+let hT = 0;
+let hReady = false;
 
-function hx(t){return 16*Math.pow(Math.sin(t),3);}
-function hy(t){return -(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t));}
+function hx(t){ return 16 * Math.pow(Math.sin(t), 3); }
+function hy(t){ return -(13*Math.cos(t) - 5*Math.cos(2*t) - 2*Math.cos(3*t) - Math.cos(4*t)); }
 
 function buildPts(){
-  const W=hC.width, H=hC.height;
-  const cx=W/2, cy=H/2+W*0.04;
-  const scale=W/44;
-  pts=[];
-  const N=200;
-  for(let i=0;i<N;i++){
-	const t=(i/N)*Math.PI*2;
-	const px=cx+hx(t)*scale;
-	const py=cy+hy(t)*scale;
-	const clrs=['#ff6b9d','#ff1f6e','#ffaac9','#fff','#ff94bc','#ff5577','#ffcce0'];
+  const W = hC.width, H = hC.height;
+  const cx = W/2, cy = H/2 + W*0.04;
+  const scale = W/44;
+  pts = [];
+  const N = 200;
+  for(let i = 0; i < N; i++){
+	const t = (i/N) * Math.PI * 2;
+	const px = cx + hx(t) * scale;
+	const py = cy + hy(t) * scale;
+	const clrs = ['#ff6b9d','#ff1f6e','#ffaac9','#fff','#ff94bc','#ff5577','#ffcce0'];
 	pts.push({
-	  ox:px, oy:py,
-	  w:WORDS[Math.floor(Math.random()*WORDS.length)],
-	  sz:8+Math.random()*5,
-	  col:clrs[Math.floor(Math.random()*clrs.length)],
-	  ph:Math.random()*Math.PI*2,
-	  sp:0.018+Math.random()*0.018,
-	  amp:2+Math.random()*3
+	  ox: px, oy: py,
+	  w: WORDS[Math.floor(Math.random()*WORDS.length)],
+	  sz: 8 + Math.random()*5,
+	  col: clrs[Math.floor(Math.random()*clrs.length)],
+	  ph: Math.random()*Math.PI*2,
+	  sp: 0.018 + Math.random()*0.018,
+	  amp: 2 + Math.random()*3
 	});
   }
-  hReady=true;
+  hReady = true;
 }
 
 function sizeHeart(){
-  const wrap=document.getElementById('heartWrap');
-  const s=wrap.offsetWidth;
-  hC.width=s; hC.height=s;
+  const wrap = document.getElementById('heartWrap');
+  const s = wrap.offsetWidth;
+  hC.width = s;
+  hC.height = s;
   buildPts();
 }
 
@@ -555,170 +561,225 @@ function drawHeartLoop(){
   requestAnimationFrame(drawHeartLoop);
   hX.clearRect(0,0,hC.width,hC.height);
   if(!hReady) return;
-  hT+=0.016;
-  // glow
-  const g=hX.createRadialGradient(hC.width/2,hC.height/2,0,hC.width/2,hC.height/2,hC.width*0.6);
-  g.addColorStop(0,'rgba(255,31,110,0.07)');
-  g.addColorStop(1,'transparent');
-  hX.fillStyle=g; hX.fillRect(0,0,hC.width,hC.height);
-  // words
-  pts.forEach(p=>{
-	const dx=Math.sin(hT*p.sp*60+p.ph)*p.amp;
-	const dy=Math.cos(hT*p.sp*60+p.ph+1)*p.amp;
-	const alpha=0.65+0.35*Math.sin(hT*1.5+p.ph);
-	hX.font=`${p.sz}px 'Playfair Display', serif`;
-	hX.fillStyle=p.col;
-	hX.globalAlpha=alpha;
-	hX.fillText(p.w, p.ox+dx, p.oy+dy);
+  hT += 0.016;
+  const g = hX.createRadialGradient(hC.width/2, hC.height/2, 0, hC.width/2, hC.height/2, hC.width*0.6);
+  g.addColorStop(0, 'rgba(255,31,110,0.07)');
+  g.addColorStop(1, 'transparent');
+  hX.fillStyle = g;
+  hX.fillRect(0,0,hC.width,hC.height);
+
+  pts.forEach(p => {
+	const dx = Math.sin(hT * p.sp * 60 + p.ph) * p.amp;
+	const dy = Math.cos(hT * p.sp * 60 + p.ph + 1) * p.amp;
+	const alpha = 0.65 + 0.35 * Math.sin(hT * 1.5 + p.ph);
+	hX.font = `${p.sz}px 'Playfair Display', serif`;
+	hX.fillStyle = p.col;
+	hX.globalAlpha = alpha;
+	hX.fillText(p.w, p.ox + dx, p.oy + dy);
   });
-  hX.globalAlpha=1;
+  hX.globalAlpha = 1;
 }
 
 sizeHeart();
 drawHeartLoop();
 window.addEventListener('resize', sizeHeart);
 
-// heart click → burst → page 2
-let tapped=false;
+// Heart click → burst → page
+let tapped = false;
 document.getElementById('heartWrap').addEventListener('click', tapHeart);
-document.getElementById('heartWrap').addEventListener('touchend', e=>{e.preventDefault(); tapHeart();});
+document.getElementById('heartWrap').addEventListener('touchend', e => {
+  e.preventDefault();
+  tapHeart();
+});
 
 function tapHeart(){
-  if(tapped) return; tapped=true;
-  // burst particles
-  const cx=hC.width/2, cy=hC.height/2;
-  const burst=Array.from({length:28},(_,i)=>({
-	x:cx,y:cy,
-	angle:(i/28)*Math.PI*2,
-	sp:2+Math.random()*5,
-	a:1, sz:12+Math.random()*12,
-	e:['💕','💗','✨','🌸'][Math.floor(Math.random()*4)]
+  if(tapped) return;
+  tapped = true;
+  const cx = hC.width/2, cy = hC.height/2;
+  const burst = Array.from({length:28}, (_, i) => ({
+	x: cx, y: cy,
+	angle: (i/28) * Math.PI * 2,
+	sp: 2 + Math.random()*5,
+	a: 1,
+	sz: 12 + Math.random()*12,
+	e: ['💕','💗','✨','🌸'][Math.floor(Math.random()*4)]
   }));
-  let bf=0;
+  let bf = 0;
   function ba(){
 	bf++;
-	burst.forEach(b=>{
-	  b.x+=Math.cos(b.angle)*b.sp;
-	  b.y+=Math.sin(b.angle)*b.sp;
-	  b.a=Math.max(0,1-bf/35);
-	  hX.font=b.sz+'px serif';
-	  hX.globalAlpha=b.a;
-	  hX.fillText(b.e,b.x,b.y);
+	burst.forEach(b => {
+	  b.x += Math.cos(b.angle) * b.sp;
+	  b.y += Math.sin(b.angle) * b.sp;
+	  b.a = Math.max(0, 1 - bf/35);
+	  hX.font = b.sz + 'px serif';
+	  hX.globalAlpha = b.a;
+	  hX.fillText(b.e, b.x, b.y);
 	});
-	hX.globalAlpha=1;
-	if(bf<38) requestAnimationFrame(ba);
-else { startAudio(); setTimeout(()=>goTo('pGuess'),200); }
+	hX.globalAlpha = 1;
+	if(bf < 38) requestAnimationFrame(ba);
+	else {
+	  startAudio();
+	  setTimeout(() => goTo('pGuess'), 200);
+	}
   }
   ba();
 }
 
 // ═══════ PAGE TRANSITIONS ═══════
 function goTo(id){
-  document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));
+  document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
   document.getElementById(id).classList.remove('hidden');
-  if(id==='p4') buildPlaylist();
+  if(id === 'p4') buildPlaylist();
 }
 
-// ═══════ AUDIO ═══════
-const aud=document.getElementById('aud');
-let ci=0, looping=false, playing=false;
+// ═══════ AUDIO — FIXED ═══════
+const aud = document.getElementById('aud');
+let ci = 0;
+let looping = false;
 
-const TRACKS=[
-  {name:'I Love You',	   artist:'Amma',			  url:'https://files.catbox.moe/yvvg9w.mps'},
-  {name:'I Love You, I\'m Sorry', artist:'Gracie Abrams', url:null},
-  {name:'Dandelions',	   artist:'Ruth B.',			url:null},
-  {name:'Summertime Sadness',artist:'Lana Del Rey',	 url:null},
-  {name:"Dusk Till Dawn",   artist:'ZAYN ft. Sia',	   url:null},
+const TRACKS = [
+  { name: 'I Love You',            artist: 'Amma',               url: 'https://files.catbox.moe/yvvg9w.mp3' },
+  { name: 'Dusk Till Dawn',        artist: 'ZAYN ft. Sia',       url: 'https://files.catbox.moe/6pjud0.mp3' },
+  { name: 'Ordinary',              artist: 'Alex Warren',        url: 'https://files.catbox.moe/qw8qy6.mp3' },
+  { name: 'I Love You, I\'m Sorry', artist: 'Gracie Abrams',   url: 'https://files.catbox.moe/3e18yz.mp3' },
+  { name: 'Summertime Sadness',    artist: 'Lana Del Rey',       url: 'https://files.catbox.moe/1fhmpi.mp3' }
 ];
 
 function startAudio(){
-  // Auto-play main song (track 0) if file loaded
-  if(TRACKS[0].url){ aud.src=TRACKS[0].url; aud.play().then(()=>setP(true)).catch(()=>{}); }
+  selTrack(0);
 }
 
 function buildPlaylist(){
-  document.getElementById('tName').textContent=TRACKS[ci].name;
-  document.getElementById('tArtist').textContent=TRACKS[ci].artist;
-  const pl=document.getElementById('pl');
-  pl.innerHTML='';
-  TRACKS.forEach((t,i)=>{
-	const d=document.createElement('div');
-	d.className='pl-item'+(i===ci?' active':'');
-	d.innerHTML=`<span class="pl-num">${String(i+1).padStart(2,'0')}</span>
-	  <div class="pl-info"><span class="pl-name">${t.name}</span><span class="pl-artist">${t.artist}</span></div>
+  const pl = document.getElementById('pl');
+  pl.innerHTML = '';
+
+  TRACKS.forEach((t, i) => {
+	const d = document.createElement('div');
+	d.className = `pl-item ${i === ci ? 'active' : ''}`;
+	d.innerHTML = `
+	  <span class="pl-num">${String(i+1).padStart(2,'0')}</span>
+	  <div class="pl-info">
+		<span class="pl-name">${t.name}</span>
+		<span class="pl-artist">${t.artist}</span>
+	  </div>
 	  <div class="pl-dot"></div>`;
-	d.addEventListener('click',()=>selTrack(i));
+	d.addEventListener('click', () => selTrack(i));
 	pl.appendChild(d);
   });
 }
 
 function selTrack(i){
-  ci=i;
-  const t=TRACKS[i];
-  document.getElementById('tName').textContent=t.name;
-  document.getElementById('tArtist').textContent=t.artist;
+  ci = i;
+  const t = TRACKS[i];
+
+  document.getElementById('tName').textContent = t.name;
+  document.getElementById('tArtist').textContent = t.artist;
   buildPlaylist();
-  if(t.url){ aud.src=t.url; aud.play().then(()=>setP(true)).catch(()=>{}); }
-  else { setP(false); document.getElementById('tName').textContent=t.name+' — upload below ↓'; }
+
+  if(t.url){
+	aud.src = t.url;
+	aud.load();
+	aud.play()
+	  .then(() => setP(true))
+	  .catch(() => setP(false));
+  }
 }
 
 function togglePlay(){
-  if(!aud.src||aud.src===location.href){ highlight(); return; }
-  aud.paused ? aud.play().then(()=>setP(true)) : (aud.pause(), setP(false));
+  if(!aud.src || aud.src === location.href){
+	highlight();
+	return;
+  }
+  if(aud.paused || aud.ended){
+	aud.play().then(() => setP(true)).catch(() => setP(false));
+  } else {
+	aud.pause();
+	setP(false);
+  }
 }
 
 function setP(p){
-  playing=p;
-  document.getElementById('playBtn').textContent=p?'⏸':'▶';
-  document.getElementById('vinyl').classList.toggle('spin',p);
-  document.getElementById('eq').classList.toggle('paused',!p);
+  document.getElementById('playBtn').textContent = p ? '⏸' : '▶';
+  document.getElementById('vinyl').classList.toggle('spin', p);
+  document.getElementById('eq').classList.toggle('paused', !p);
 }
 
-aud.addEventListener('timeupdate',()=>{
-  const pct=(aud.currentTime/aud.duration)*100||0;
-  document.getElementById('pf').style.width=pct+'%';
-  document.getElementById('ct').textContent=fmt(aud.currentTime);
-});
-aud.addEventListener('loadedmetadata',()=>{
-  document.getElementById('dt').textContent=fmt(aud.duration);
-});
-aud.addEventListener('ended',()=>{
-  if(looping){aud.currentTime=0;aud.play();}
-  else next();
+aud.addEventListener('timeupdate', () => {
+  const pct = aud.duration ? (aud.currentTime / aud.duration) * 100 : 0;
+  document.getElementById('pf').style.width = pct + '%';
+  document.getElementById('ct').textContent = fmt(aud.currentTime);
 });
 
-function next(){ selTrack((ci+1)%TRACKS.length); }
-function prev(){ selTrack((ci-1+TRACKS.length)%TRACKS.length); }
-function restart(){ if(aud.src&&aud.src!==location.href){aud.currentTime=0;if(aud.paused){aud.play().then(()=>setP(true));}} }
+aud.addEventListener('loadedmetadata', () => {
+  document.getElementById('dt').textContent = fmt(aud.duration);
+});
+
+aud.addEventListener('ended', () => {
+  if(looping){
+	aud.currentTime = 0;
+	aud.play();
+  } else {
+	next();
+  }
+});
+
+aud.addEventListener('error', () => {
+  console.error("Audio failed to load:", aud.src);
+  document.getElementById('tName').textContent = "❌ Can't play this track";
+});
+
+function next(){ selTrack((ci + 1) % TRACKS.length); }
+function prev(){ selTrack((ci - 1 + TRACKS.length) % TRACKS.length); }
+
+function restart(){
+  if(aud.src){
+	aud.currentTime = 0;
+	if(aud.paused) aud.play().then(() => setP(true));
+  }
+}
+
 function toggleLoop(){
-  looping=!looping;
-  document.getElementById('loopBtn').style.color=looping?'#ff6b9d':'';
+  looping = !looping;
+  document.getElementById('loopBtn').style.color = looping ? '#ff6b9d' : '';
 }
+
 function seek(e){
   if(!aud.duration) return;
-  aud.currentTime=(e.offsetX/document.getElementById('pb').offsetWidth)*aud.duration;
+  const rect = e.currentTarget.getBoundingClientRect();
+  const pos = (e.clientX - rect.left) / rect.width;
+  aud.currentTime = pos * aud.duration;
 }
+
 function fmt(s){
-  if(!s||isNaN(s)) return '0:00';
-  return `${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;
+  if(!s || isNaN(s)) return '0:00';
+  const min = Math.floor(s / 60);
+  const sec = Math.floor(s % 60);
+  return `${min}:${sec < 10 ? '0' : ''}${sec}`;
 }
 
 function highlight(){
-  const b=document.querySelector('.up-btn');
-  b.style.borderColor='#ff6b9d'; b.style.color='#ff6b9d';
-  setTimeout(()=>{b.style.borderColor='';b.style.color='';},1200);
+  const b = document.querySelector('.up-btn');
+  if(b){
+	b.style.borderColor = '#ff6b9d';
+	b.style.color = '#ff6b9d';
+	setTimeout(() => {
+	  b.style.borderColor = '';
+	  b.style.color = '';
+	}, 1200);
+  }
 }
 
 function loadFile(e){
-  const f=e.target.files[0]; if(!f) return;
-  const url=URL.createObjectURL(f);
-  // assign to current track
-  TRACKS[ci].url=url;
-  aud.src=url;
+  const f = e.target.files[0];
+  if(!f) return;
+  const url = URL.createObjectURL(f);
+  TRACKS[ci].url = url;
+  aud.src = url;
   buildPlaylist();
-  aud.play().then(()=>setP(true)).catch(()=>{});
+  aud.play().then(() => setP(true)).catch(() => {});
 }
 
+// Initialize
 buildPlaylist();
 </script>
 
